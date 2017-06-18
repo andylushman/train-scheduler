@@ -12,7 +12,6 @@ var config = {
   messagingSenderId: "441578825451"
 };
 
-//Initialize Friebase
 firebase.initializeApp(config);
 var database = firebase.database();
 
@@ -80,16 +79,22 @@ database.ref().on("child_added", (childSnapshot) => {
   console.log(firstTrain);
   console.log(trainFrequency);
 
-  //Calculate next train arrival
-  var nextArrival = 
-  console.log(nextArrival);
-  //Calculate how many minutes before the next train arrives
-  var minsAway = "x"
-  console.log(minsAway);
+  //Variables for ccalculations
+  //First time for intial value
+  var startTime = moment(firstTrain, 'hh:mm');
+  //Current time to find out difference
+  var currentTime = moment();
+  //Difference between initial and current
+  var difference = moment().diff(moment(startTime), "minutes");
+  //modular math to figure out time
+  var remainder = difference % trainFrequency;
+  //minutes away time calculation
+  var minsAway = trainFrequency - remainder;
+  //calculate the next train arrival time
+  var nextArrival = moment().add(minsAway, "minutes");
 
   // Add each train's data into the table
   $("#train-table").append("<tr><td>" + trainName + "</td><td>" + trainDestination + "</td><td>" +
   trainFrequency + "</td><td>" + nextArrival + "</td><td>" + minsAway + "</td></tr>");
-
 
 }); //End database.ref().on()
