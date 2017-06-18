@@ -2,16 +2,18 @@
 //GLOBAL VARIABLES
 //=======================
 
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyDIXjfHrNm-LzFJZT-wUc5nMNxXhWVorq0",
-    authDomain: "train-scheduler-77d8d.firebaseapp.com",
-    databaseURL: "https://train-scheduler-77d8d.firebaseio.com",
-    projectId: "train-scheduler-77d8d",
-    storageBucket: "train-scheduler-77d8d.appspot.com",
-    messagingSenderId: "441578825451"
-  };
+// Initialize Firebase
+var config = {
+  apiKey: "AIzaSyDIXjfHrNm-LzFJZT-wUc5nMNxXhWVorq0",
+  authDomain: "train-scheduler-77d8d.firebaseapp.com",
+  databaseURL: "https://train-scheduler-77d8d.firebaseio.com",
+  projectId: "train-scheduler-77d8d",
+  storageBucket: "train-scheduler-77d8d.appspot.com",
+  messagingSenderId: "441578825451"
+};
 
+//Initialize Friebase
+firebase.initializeApp(config);
 var database = firebase.database();
 
 //=======================
@@ -24,41 +26,38 @@ var database = firebase.database();
 //MAIN PROCESS
 //=======================
 
-//Initialize Friebase
-  firebase.initializeApp(config);
+// Button for adding Trains
+$("#add-train-btn").on("click", (event) => {
+  //Takes User Input
+  var trainName = $("#train-input-name").val().trim();
+  var trainDestination = $("#destination-input").val().trim();
+  var firstTrain = moment($("#first-train-time").val().trim(), "DD/MM/YY").format("HHmm");
+  var trainFrequency = $("#frequency-input").val().trim();
 
-  // Button for adding Trains
-  $("#add-train-btn").on("click", (event) => {
-    //Takes User Input
-    var trainName = $("#train-input-name").val().trim();
-    var trainDestination = $("#destination-input").val().trim();
-    var firstTrain = moment($("#first-train-time").val().trim(), "DD/MM/YY").format("HHmm");
-    var trainFrequency = $("#frequency-input").val().trim();
+  // Creates local "temporary" object for holding train data
+  var newTrain = {
+    name: trainName,
+    destination: trainDestination,
+    time: firstTrain,
+    frequency: trainFrequency
+  };
 
-    // Creates local "temporary" object for holding train data
-    var newTrain = {
-      name: trainName,
-      destination: trainDestination,
-      time: firstTrain,
-      frequency: trainFrequency
-    };
+  // Uploads train data to the database
+  database.ref().push(newTrain);
 
-    // Uploads train data to the database
-    database.ref().push(newTrain);
+  //Logs everything to console
+  console.log(newTrain.name);
+  console.log(newTrain.destination);
+  console.log(newTrain.time);
+  console.log(newTrain.frequency);
 
-    //Logs everything to console
-    console.log(newTrain.name);
-    console.log(newTrain.destination);
-    console.log(newTrain.time);
-    console.log(newTrain.frequency);
+  //Alert
+  alert("Train successfully added");
 
-    //Alert
-    alert("Train successfully added");
+  //Clears All Text Boxes
+  $("#train-input-name").empty();
+  $("#destination-input").empty();
+  $("#first-train-time").empty();
+  $("#frequency-input").empty();
 
-    //Clears All Text Boxes
-    $("#train-input-name").empty();
-    $("#destination-input").empty();
-    $("#first-train-time").empty();
-    $("#frequency-input").empty();
-
-  }) //End btn click
+}) //End btn click
