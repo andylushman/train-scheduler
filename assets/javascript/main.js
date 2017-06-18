@@ -28,8 +28,9 @@ var database = firebase.database();
 
 // Button for adding Trains
 $("#add-train-btn").on("click", (event) => {
+  debugger;
   //Takes User Input
-  var trainName = $("#train-input-name").val().trim();
+  var trainName = $("#train-name-input").val().trim();
   var trainDestination = $("#destination-input").val().trim();
   //var firstTrain = moment($("#first-train-time").val().trim(), "DD/MM/YY").format("HHmm");
   var trainFrequency = $("#frequency-input").val().trim();
