@@ -7,7 +7,7 @@ var config = {
   apiKey: "AIzaSyDIXjfHrNm-LzFJZT-wUc5nMNxXhWVorq0",
   authDomain: "train-scheduler-77d8d.firebaseapp.com",
   databaseURL: "https://train-scheduler-77d8d.firebaseio.com",
-  projectId: "train-scheduler-77d8d",
+  //projectId: "train-scheduler-77d8d",
   storageBucket: "train-scheduler-77d8d.appspot.com",
   messagingSenderId: "441578825451"
 };
@@ -28,11 +28,12 @@ var database = firebase.database();
 
 // Button for adding Trains
 $("#add-train-btn").on("click", (event) => {
-  debugger;
+    event.preventDefault();
+
   //Takes User Input
   var trainName = $("#train-name-input").val().trim();
   var trainDestination = $("#destination-input").val().trim();
-  //var firstTrain = moment($("#first-train-time").val().trim(), "DD/MM/YY").format("HHmm");
+  var firstTrain = moment($("#first-train-input").val().trim(), "DD/MM/YY").format("HHmm");
   var trainFrequency = $("#frequency-input").val().trim();
 
   // Creates local "temporary" object for holding train data
@@ -56,9 +57,39 @@ $("#add-train-btn").on("click", (event) => {
   alert("Train successfully added");
 
   //Clears All Text Boxes
-  $("#train-input-name").empty();
-  $("#destination-input").empty();
-  $("#first-train-time").empty();
-  $("#frequency-input").empty();
+  $("#train-name-input").val("");
+  $("#destination-input").val("");
+  $("#first-train-input").val("");
+  $("#frequency-input").val("");
 
-}) //End btn click
+}); //End btn click
+
+
+database.ref().on("child_added", (childSnapshot) => {
+  console.log(childSnapshot.val());
+
+  // Store everything into a variable.
+  var trainName = childSnapshot.val().name;
+  var trainDestination = childSnapshot.val().destination;
+  var firstTrain = childSnapshot.val().time;
+  var trainFrequency = childSnapshot.val().frequency;
+
+  //Log Train Info
+  console.log(trainName);
+  console.log(trainDestination);
+  console.log(firstTrain);
+  console.log(trainFrequency);
+
+  //Calculate next train arrival
+  var nextArrival = 
+  console.log(nextArrival);
+  //Calculate how many minutes before the next train arrives
+  var minsAway = "x"
+  console.log(minsAway);
+
+  // Add each train's data into the table
+  $("#train-table").append("<tr><td>" + trainName + "</td><td>" + trainDestination + "</td><td>" +
+  trainFrequency + "</td><td>" + nextArrival + "</td><td>" + minsAway + "</td></tr>");
+
+
+}); //End database.ref().on()
