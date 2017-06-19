@@ -111,6 +111,7 @@ database.ref().on("child_added", (childSnapshot) => {
   console.log("Aww snap: " + errorObject.code);
 }); //End database.ref().on()
 
+
 //Order data by destination
 database.ref().orderByChild("destination").on("child_added", (snapshot) => {
   console.log(snapshot.key + " Destination: " + snapshot.val().destination);
