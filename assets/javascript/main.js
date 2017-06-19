@@ -64,7 +64,7 @@ $("#add-train-btn").on("click", (event) => {
 }); //End btn click
 
 
-database.ref().on("child_added", (childSnapshot) => {
+database.ref().orderByChild("destination").on("child_added", (childSnapshot) => {
   console.log(childSnapshot.val());
 
   // Store everything into a variable.
@@ -112,12 +112,6 @@ database.ref().on("child_added", (childSnapshot) => {
 }); //End database.ref().on()
 
 
-//Order data by destination
-database.ref().orderByChild("destination").on("child_added", (snapshot) => {
-  console.log(snapshot.key + " Destination: " + snapshot.val().destination);
-}, function(errorObject) {
-  console.log("Aww snap: " + errorObject.code)
-});
 
 //Remove btn
 $(".remove-train").on("click", () =>{
