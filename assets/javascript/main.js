@@ -105,7 +105,7 @@ database.ref().on("child_added", (childSnapshot) => {
 
   // Add each train's data into the table
   $("#train-table").append("<tr><td>" + trainName + "</td><td>" + trainDestination + "</td><td>" +
-  trainFrequency + "</td><td>" + nextTrainPretty + "</td><td>" + tMinutesTillTrain + "</td><td class'text-right'><input type='submit' value='remove train' class='remove-train btn btn-primary btn-sm'></tr>");
+  trainFrequency + "</td><td>" + nextTrainPretty + "</td><td>" + tMinutesTillTrain + "</td><td class'text-right'><input type='submit' value='Remove Train' class='remove-train btn btn-primary btn-sm'></tr>");
 
 }, (errorObject) => {
   console.log("Aww snap: " + errorObject.code);
