@@ -105,15 +105,8 @@ database.ref().orderByChild("destination").on("child_added", (childSnapshot) => 
 
   // Add each train's data into the table
   $("#train-table").append("<tr><td>" + trainName + "</td><td>" + trainDestination + "</td><td>" +
-  trainFrequency + "</td><td>" + nextTrainPretty + "</td><td>" + tMinutesTillTrain + "</td><td class'text-right'><input type='submit' value='Remove Train' class='remove-train btn btn-primary btn-sm'></tr>");
+  trainFrequency + "</td><td>" + nextTrainPretty + "</td><td>" + tMinutesTillTrain + "</td></tr>");
 
 }, (errorObject) => {
   console.log("Aww snap: " + errorObject.code);
 }); //End database.ref().on()
-
-
-
-//Remove btn
-$(".remove-train").on("click", () =>{
-  $(this).parent().remove();
-});
